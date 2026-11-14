@@ -20,7 +20,7 @@ jobs:
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v4
       with:
-        role-to-assume: arn:aws:iam::YOUR-ACCOUNT-ID:role/YOUR-ROLE-NAME
+        role-to-assume: arn:aws:iam::466142173480:role/DEPLOYER
         aws-region: us-east-1
 
     - name: Upload files to S3
