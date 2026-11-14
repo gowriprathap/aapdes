@@ -1,0 +1,29 @@
+name: Upload to S3
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+
+    # This is crucial - it allows the action to get temporary credentials
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: arn:aws:iam::YOUR-ACCOUNT-ID:role/YOUR-ROLE-NAME
+        aws-region: us-east-1
+
+    - name: Upload files to S3
+      run: |
+        # aws s3 cp ./your-file.txt s3://your-bucket-name/
+        aws s3 ls
