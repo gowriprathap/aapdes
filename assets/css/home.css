@@ -1,0 +1,180 @@
+/* Home page. Motion is driven by assets/js/home.js; without the .motion class every section shows its end state. */
+
+/* ---------- 1+2 hero that wipes into the statement (M1 M2 M3 M4) ---------- */
+.wipe{position:relative}
+.wipe-stage{position:relative;background:var(--canvas);overflow:hidden;min-height:780px;--k:1}
+.motion .wipe{height:300vh}
+.motion .wipe-stage{position:sticky;top:0;height:100vh;height:100svh;min-height:560px}
+.hero-stage{position:absolute;left:50%;top:38%;width:0;height:0;z-index:2}
+.circle{position:absolute;left:0;top:0;width:calc(340px*var(--k));height:calc(340px*var(--k));margin:calc(-170px*var(--k)) 0 0 calc(-170px*var(--k));border-radius:9999px;background:var(--canvas-elevated);will-change:transform}
+.props{position:absolute;left:0;top:0;width:0;height:0}
+/* Logo sits on the circle; project chips orbit it */
+.logo-mark{position:absolute;z-index:1;left:calc(-88px*var(--k));top:calc(-210px*var(--k));width:calc(176px*var(--k));height:calc(420px*var(--k));display:flex;align-items:center;justify-content:center}
+/* The flying logo: fixed, positioned every frame between the hero slot and the nav slot (home.js) */
+.logo-fly{display:none}
+.motion .logo-fly{display:block;position:fixed;left:0;top:0;z-index:60;pointer-events:none}  /* no will-change: keeps the SVG re-rendering sharp at every size */
+.motion .logo-mark img{visibility:hidden}
+.logo-mark img{width:100%;height:100%;object-fit:contain}
+.logo-ph{width:calc(160px*var(--k));flex:none;height:100%;display:flex;align-items:center;justify-content:center;border:1px dashed var(--body-on-dark);color:var(--body-on-dark)}
+.chip{position:absolute;overflow:hidden;border-radius:9999px;width:calc(var(--sz)*var(--k)*1px);height:calc(var(--sz)*var(--k)*1px);left:calc(var(--cx)*var(--k)*1px);top:calc(var(--cy)*var(--k)*1px);margin:calc(var(--sz)*var(--k)*-.5px) 0 0 calc(var(--sz)*var(--k)*-.5px);background:var(--canvas-elevated)}
+.motion .chip{animation:drift var(--d) ease-in-out var(--dl) infinite alternate}
+.chip img{width:100%;height:100%;object-fit:cover}
+.c1{--sz:104;--cx:-300;--cy:-70;--d:11s;--dl:0s}
+.c2{--sz:88;--cx:285;--cy:-105;--d:13s;--dl:-3s}
+.c3{--sz:64;--cx:230;--cy:135;--d:8s;--dl:-5s}
+.c4{--sz:76;--cx:-235;--cy:150;--d:10s;--dl:-7s}
+@keyframes drift{from{translate:-14px -10px}to{translate:14px 12px}}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes grow{from{scale:.8}to{scale:1}}
+.motion .hero-bottom,.motion .logo-mark{animation:rise var(--dur-slow) var(--ease-out) both}
+.motion .hero-stage{animation:grow var(--dur-slow) var(--ease-out) both}
+
+.hero{position:absolute;inset:0;z-index:3;pointer-events:none}
+.hero a{pointer-events:auto}
+.hero-meta{position:absolute;top:92px;left:48px;right:48px;display:flex;align-items:center;gap:24px;color:var(--body-on-dark)}
+.hero-meta i{flex:1;height:1px;background:var(--hairline)}
+.hero-bottom{position:absolute;left:48px;right:48px;bottom:68px;display:flex;align-items:flex-end;justify-content:space-between;gap:48px}
+/* Two-line name. Line height clears the "j" descender above the second line.
+   Optical alignment: Inter's "A" ink starts .016em in, "P" ink .078em in, so line 2 shifts left to match. */
+.wordmark{font-weight:500;font-size:clamp(56px,9.2vw,172px);line-height:1.04;letter-spacing:-.06em;margin-left:-.016em}
+.wordmark span{display:block;white-space:nowrap}
+.wordmark span+span{margin-left:-.062em}
+.hero-copy{max-width:340px;display:flex;flex-direction:column;gap:24px;align-items:flex-start;padding-bottom:12px}
+.hero-copy p{color:var(--body-strong-on-dark)}
+
+.statement{background:var(--canvas-parchment);color:var(--ink-on-light);padding:128px 24px;text-align:center}
+.motion .statement{position:absolute;inset:0;z-index:4;background:transparent;display:flex;align-items:center;justify-content:center;padding:0 24px;opacity:0;pointer-events:none}
+.statement-inner{max-width:1000px;margin:0 auto;display:flex;flex-direction:column;gap:32px;align-items:center}
+.statement .label{color:var(--muted-on-light)}
+.statement h2{font-weight:500;font-size:clamp(30px,4.6vw,58px);line-height:1.12;letter-spacing:-.9px}
+.statement h2 em{font-style:italic;font-weight:300}
+.statement .sub{max-width:600px;color:var(--body-on-light)}
+.ichip{display:inline-block;width:1.8em;height:.86em;border-radius:9999px;overflow:hidden;vertical-align:-.06em;margin:0 .08em;background:var(--ink-on-light)}
+.ichip img{width:100%;height:100%;object-fit:cover}
+/* Reduced motion / no JS: hero takes one full screen, the statement follows it in normal flow */
+html:not(.motion) .wipe-stage{--hh:max(780px,100svh);min-height:0}
+html:not(.motion) .hero{bottom:auto;height:var(--hh)}
+html:not(.motion) .hero-stage{top:calc(var(--hh)*.38)}
+html:not(.motion) .statement{position:relative;z-index:4;margin-top:var(--hh)}
+.wipe-out{display:none}
+.motion .wipe-out{display:block;position:absolute;left:50%;top:100%;width:100px;height:100px;margin:-50px 0 0 -50px;border-radius:9999px;background:var(--canvas);z-index:6;transform:scale(0);will-change:transform}
+
+/* ---------- 3 four moves (M5 M6) ---------- */
+.moves{position:relative;background:var(--canvas);padding:128px 24px 160px;overflow:hidden}
+.moves .sec-head{margin:0 auto;align-items:center;text-align:center}
+.plates{position:relative;display:flex;flex-direction:column;align-items:center;gap:22px;margin-top:72px}
+.plates .plate{transform:translateX(var(--x)) rotate(var(--r))}
+.plates .plate:nth-child(1){--x:-70px;--r:-2.5deg}.plates .plate:nth-child(2){--x:60px;--r:2deg}.plates .plate:nth-child(3){--x:-50px;--r:-1.5deg}.plates .plate:nth-child(4){--x:80px;--r:3deg}
+.prop{position:absolute;border-radius:9999px;overflow:hidden;background:var(--canvas-elevated)}
+.prop img{width:100%;height:100%;object-fit:cover}
+.p1{width:150px;height:150px;left:6%;top:200px}
+.p2{width:96px;height:96px;right:9%;top:420px;filter:blur(3px)}
+.p3{width:124px;height:124px;left:14%;bottom:150px}
+
+/* ---------- 4 selected work teaser (M7 M8) ---------- */
+.work{position:relative;background:var(--canvas-alt);padding:128px 24px 144px;overflow:hidden}
+.work-top{max-width:var(--max);margin:0 auto;display:flex;flex-direction:column;gap:8px}
+.work-top .label{color:var(--body-on-dark)}
+.work-top .small{font-size:clamp(24px,2.6vw,32px);font-weight:500;letter-spacing:-.4px}
+.outline-word{max-width:var(--max);margin:0 auto;font-weight:500;font-size:clamp(120px,22vw,330px);line-height:.9;letter-spacing:-.05em;color:transparent;-webkit-text-stroke:1.5px #fff;white-space:nowrap;transform-origin:left center;padding:12px 0 48px}
+.cards{max-width:var(--max);margin:0 auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;align-items:start}
+.card{position:relative;display:flex;min-height:470px;border:1px solid var(--hairline);text-decoration:none;color:#fff;overflow:hidden}
+.cards .card:nth-child(2){margin-top:40px}.cards .card:nth-child(3){margin-top:80px}.cards .card:nth-child(4){margin-top:120px}
+.card .fill{position:absolute;inset:0;background:var(--canvas-elevated);transform-origin:bottom;transform:scaleY(var(--f,1))}
+.card-in{position:relative;display:flex;flex-direction:column;gap:12px;padding:24px;width:100%}
+.card .ph{aspect-ratio:16/9;background:var(--canvas);margin-bottom:8px;overflow:hidden}
+.card .ph img{width:100%;height:100%;object-fit:cover}
+.card .label{color:var(--body-strong-on-dark)}
+.card h3{font-weight:500;font-size:28px;line-height:1.2;letter-spacing:-.2px}
+.card p{font-size:14px;line-height:1.5;letter-spacing:-.224px;color:var(--body-strong-on-dark)}
+.card .more{margin-top:auto;padding-top:12px}
+.work-all{max-width:var(--max);margin:72px auto 0;display:flex;justify-content:flex-end}
+
+/* ---------- 5 capabilities (M9) ---------- */
+.caps{padding:128px 24px}
+.caps .inner{max-width:var(--max);margin:0 auto;display:flex;flex-direction:column;gap:64px}
+.caps h2{font-weight:500;font-size:clamp(28px,3.6vw,44px);line-height:1.12;letter-spacing:-.6px;max-width:720px}
+.caps h2 span{color:var(--muted-on-light)}
+.cap-row{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;align-items:stretch}
+.tile{position:relative;min-height:440px;background:var(--canvas);color:#fff;display:flex;align-items:flex-end;padding:24px;overflow:hidden}
+.tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tile::after{content:"";position:absolute;inset:auto 0 0 0;height:45%;background:linear-gradient(180deg,rgba(3,3,3,0),rgba(3,3,3,.72))}
+.tile span{position:relative;z-index:1}
+.cap{display:flex;flex-direction:column;gap:14px;padding:32px;border:1px solid var(--hairline-on-light);background:var(--canvas-light);text-decoration:none;color:inherit}
+.cap .n{font-size:28px;font-weight:500;letter-spacing:-.2px;color:var(--muted-on-light)}
+.cap h3{font-weight:600;font-size:21px;line-height:1.19;letter-spacing:.2px}
+.cap ul{list-style:none;padding:0;display:flex;flex-direction:column;gap:8px;color:var(--body-on-light);font-size:15px;line-height:1.45;letter-spacing:-.2px}
+.cap li{display:flex;gap:10px}
+.cap li::before{content:"";flex:0 0 4px;height:4px;margin-top:9px;background:var(--ink-on-light)}
+.cap .more{margin-top:auto;padding-top:20px}
+
+/* ---------- 7 engagement arc (M11) ---------- */
+.arc{position:relative;background:var(--canvas)}
+.arc-stage{position:relative;background:var(--canvas);overflow:hidden;padding:128px 24px}
+.arc-head{display:block;width:min(960px,100%);height:auto;margin:0 auto}
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;max-width:var(--max);margin:48px auto 0}
+.step .num{font-weight:500;font-size:48px;line-height:1;letter-spacing:-.05em;color:transparent;-webkit-text-stroke:1.5px #fff;text-align:center;padding-bottom:14px;transition:color .3s var(--ease-out)}
+.step.active .num{color:#fff}
+.step .plate{width:100%}
+.ring{display:none}
+@media (min-width:761px){
+  .motion .arc{height:340vh}
+  .motion .arc-stage{position:sticky;top:0;height:100vh;height:100svh;padding:88px 0 0}
+  .motion .steps{position:absolute;inset:0;display:block;max-width:none;margin:0}
+  .motion .step{position:absolute;left:0;top:0;width:var(--pw,300px)}
+  .motion .ring{display:block;position:absolute;border:1px dashed #444;border-radius:9999px;pointer-events:none}
+}
+
+/* ---------- 8 about (M6) ---------- */
+.about{padding:128px 24px}
+.about .inner{max-width:var(--max);margin:0 auto;display:flex;flex-direction:column;gap:64px}
+.about .top{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.about .copy{display:flex;flex-direction:column;gap:32px;align-items:flex-start}
+.about .lead{font-size:24px;font-weight:300;line-height:1.5;letter-spacing:0;color:var(--body-on-light)}
+.collage{position:relative;display:grid;grid-template-columns:1.5fr 1fr 1fr;column-gap:24px}
+.shot{position:relative;min-height:380px;background:var(--canvas-parchment);overflow:hidden;margin:0}
+.shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.shot figcaption{position:absolute;left:0;right:0;top:0;padding:14px 16px 28px;color:#fff;background:linear-gradient(0deg,rgba(3,3,3,0),rgba(3,3,3,.7))}
+.shot.portrait{background:#0b0b0b;display:flex;align-items:center;justify-content:center}
+.shot.portrait img{object-position:50% 30%}
+.shot.portrait figcaption{background:none;color:var(--body-on-dark);position:static;padding:0}
+.collage .plate{position:relative;grid-row:2;align-self:start;width:min(260px,calc(100% - 16px));margin:-40px 0 0 16px;z-index:2}
+.collage .pa{grid-column:1;transform:rotate(-2deg)}
+.collage .pb2{grid-column:2;transform:rotate(1.5deg)}
+.collage .pc{grid-column:3;transform:rotate(-1.5deg)}
+.collage .plate .pb{padding:12px 18px 14px;font-size:13px}
+
+/* ---------- small screens ---------- */
+@media (max-width:1000px){
+  .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cards .card:nth-child(n){margin-top:0}.cards .card:nth-child(even){margin-top:40px}
+  .cap-row{grid-template-columns:1fr 1fr}
+  .tile{min-height:320px}
+  .about .top{grid-template-columns:1fr;gap:40px}
+  .collage{grid-template-columns:1fr 1fr 1fr}
+  .collage .shot{min-height:300px}
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:760px){
+  .wipe-stage{--k:.62;min-height:700px}
+  .hero-stage{top:31%}
+  html:not(.motion) .wipe-stage{--hh:max(700px,100svh)}
+  html:not(.motion) .hero-stage{top:calc(var(--hh)*.31)}
+  .c1{--cx:-205;--cy:-110}.c2{--cx:200;--cy:-120}.c3{--cx:195;--cy:150}.c4{display:none}
+  .hero-meta{left:24px;right:24px;top:84px}
+  .hero-meta span:last-child{display:none}
+  .hero-bottom{left:24px;right:24px;bottom:56px;flex-direction:column;align-items:flex-start;gap:20px}
+  .wordmark{font-size:12.4vw}
+  .hero-copy{gap:18px;padding-bottom:0}
+  .moves,.work,.caps,.about{padding-top:88px;padding-bottom:96px}
+  .p1{width:96px;height:96px;left:-20px}.p2{right:-10px}.p3{width:80px;height:80px;left:-10px}
+  .cards{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:16px;padding-bottom:12px;margin-right:-24px;padding-right:24px}
+  .cards .card,.cards .card:nth-child(n){flex:0 0 82%;margin-top:0;scroll-snap-align:start}
+  .work-all{margin-top:40px;justify-content:flex-start}
+  .cap-row{grid-template-columns:1fr}
+  .collage{grid-template-columns:1fr;row-gap:16px}
+  .collage .plate{grid-row:auto;grid-column:auto;position:static;width:100%;transform:none!important;margin:0}
+  .shot{min-height:260px}
+  .steps{grid-template-columns:1fr}
+  .arc-stage{padding:96px 24px}
+}
