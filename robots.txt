@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://aapdes.com/sitemap.xml
