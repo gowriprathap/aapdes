@@ -25,4 +25,4 @@ jobs:
 
     - name: Upload files to S3
       run: |
-        aws s3 sync ../../ s3://www.aapdes.com --delete --dryrun
+        aws s3 sync . s3://www.aapdes.com --delete --dryrun
