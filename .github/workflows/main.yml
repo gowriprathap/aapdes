@@ -25,4 +25,5 @@ jobs:
 
     - name: Upload files to S3
       run: |
-        aws s3 sync . s3://www.aapdes.com --delete --dryrun --exclude ".git/*" --exclude ".git"
+        aws s3 sync . s3://www.aapdes.com --delete --exclude ".git/*" \
+        --exclude ".git"
