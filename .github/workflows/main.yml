@@ -25,5 +25,4 @@ jobs:
 
     - name: Upload files to S3
       run: |
-        # aws s3 cp ./your-file.txt s3://your-bucket-name/
-        aws s3 ls s3://www.aapdes.com
+        aws s3 sync ../../ s3://www.aapdes.com --delete --dryrun
