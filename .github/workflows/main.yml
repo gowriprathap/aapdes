@@ -23,10 +23,10 @@ jobs:
         role-to-assume: arn:aws:iam::466142173480:role/DEPLOYER
         aws-region: us-east-1
 
-    # - name: Upload files to S3
-    #   run: |
-    #     aws s3 sync . s3://www.aapdes.com --delete --exclude ".git/*" \
-    #     --exclude ".git"
+    - name: Upload files to S3
+      run: |
+        aws s3 sync . s3://www.aapdes.com --delete --exclude ".git/*" \
+        --exclude ".git"
 
     - name: Invalidate cloudfront distribution
       run: |
