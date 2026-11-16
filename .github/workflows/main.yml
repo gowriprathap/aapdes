@@ -23,7 +23,14 @@ jobs:
         role-to-assume: arn:aws:iam::466142173480:role/DEPLOYER
         aws-region: us-east-1
 
-    - name: Upload files to S3
+    # - name: Upload files to S3
+    #   run: |
+    #     aws s3 sync . s3://www.aapdes.com --delete --exclude ".git/*" \
+    #     --exclude ".git"
+
+    - name: Invalidate cloudfront distribution
       run: |
-        aws s3 sync . s3://www.aapdes.com --delete --exclude ".git/*" \
-        --exclude ".git"
+        aws cloudfront create-invalidation --distribution-id \
+        ENMLPGE8K11LW --paths "/*"
+        aws cloudfront create-invalidation --distribution-id \
+        EJ0FO3QRTIRZE --paths "/*"
